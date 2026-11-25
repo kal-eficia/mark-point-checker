@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mark-point checker · try it</title>
+<meta name="description" content="Mark short written answers against exam marking points, with feedback students can act on. Runs in your browser.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0f1b2d;--soft:#46546a;--paper:#f7f5f0;--card:#fff;--line:#e4e0d6;--navy:#13294b;--teal:#0f8b8d;--teal-soft:#e3f3f2;--coral:#e0614a;--coral-soft:#fcebe7;--gold:#c99a2e;--gold-soft:#f8f0dc}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.6 Inter,system-ui,sans-serif}
+.wrap{max-width:1080px;margin:0 auto;padding:36px 20px 80px}
+.kick{font:600 12px/1 "JetBrains Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+h1{font:600 clamp(32px,5vw,48px)/1.05 Fraunces,Georgia,serif;color:var(--navy);margin:10px 0 10px;letter-spacing:-.01em}
+.lede{color:var(--soft);font-size:18px;max-width:680px;margin:0 0 28px}
+.grid{display:grid;grid-template-columns:1.1fr .9fr;gap:20px}@media(max-width:860px){.grid{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px;box-shadow:0 1px 2px rgba(15,27,45,.05),0 8px 24px rgba(15,27,45,.05)}
+label.small{display:block;font:600 12px/1 Inter;letter-spacing:.06em;text-transform:uppercase;color:var(--soft);margin:0 0 8px}
+select,textarea{width:100%;font:inherit;border:1.5px solid var(--line);border-radius:10px;padding:12px 14px;background:#fffefb;color:var(--ink)}
+select:focus,textarea:focus{outline:none;border-color:var(--teal)}
+.q{font:600 21px/1.3 Fraunces,serif;color:var(--navy);margin:18px 0 12px}
+.marks{font:500 13px Inter;color:var(--soft);margin-left:6px}
+textarea.answer{min-height:120px;resize:vertical}
+.score{display:flex;align-items:baseline;gap:10px;margin:18px 0 6px}
+.score b{font:600 40px/1 Fraunces,serif;color:var(--navy)}.score span{color:var(--soft)}
+.fb{padding:14px 16px;border-radius:10px;background:var(--gold-soft);margin:8px 0 14px;min-height:50px}
+.fb.full{background:var(--teal-soft)}.fb.none{background:var(--coral-soft)}
+.pts{list-style:none;padding:0;margin:0;display:grid;gap:8px}
+.pts li{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border:1px solid var(--line);border-radius:10px;font-size:15px}
+.pts li .dot{flex:none;width:22px;height:22px;border-radius:6px;display:grid;place-items:center;font:600 12px Inter;background:var(--paper);color:var(--soft)}
+.pts li.got{border-color:var(--teal);background:var(--teal-soft)}.pts li.got .dot{background:var(--teal);color:#fff}
+.pts li.blocked{border-color:var(--coral);background:var(--coral-soft)}.pts li.blocked .dot{background:var(--coral);color:#fff}
+.pts .ev{display:block;font:500 12px "JetBrains Mono",monospace;color:var(--soft);margin-top:2px}
+textarea.rules{font:13px/1.5 "JetBrains Mono",monospace;min-height:420px;background:#0f1b2d;color:#d8e2f0;border-color:#0f1b2d}
+.err{color:var(--coral);font-size:14px;min-height:20px;margin-top:8px}
+.try{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.try button{all:unset;cursor:pointer;font-size:13px;padding:6px 11px;border-radius:99px;border:1px solid var(--line);background:#fff}
+.try button:hover{border-color:var(--teal)}
+footer{margin-top:36px;color:var(--soft);font-size:14px}footer a{color:var(--teal)}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <div class="kick">Open source · no AI model · runs in your browser</div>
+  <h1>Mark-point checker</h1>
+  <p class="lede">Type an answer the way a student would. It's marked against the marking points on the right, and the feedback says exactly what's there and what's missing. Edit the rules to try your own questions.</p>
+
+  <div class="grid">
+    <section class="card" aria-label="Answer">
+      <label class="small" for="pick">Question</label>
+      <select id="pick"></select>
+      <div class="q" id="qtext"></div>
+      <label class="small" for="answer">Student answer</label>
+      <textarea id="answer" class="answer" placeholder="Type an answer…"></textarea>
+      <div class="try" id="samples" aria-label="Sample answers"></div>
+      <div class="score" aria-live="polite"><b id="score">0</b><span id="outof">/ 3 marks</span></div>
+      <div class="fb" id="fb" aria-live="polite">Start typing to see the feedback.</div>
+      <ul class="pts" id="pts"></ul>
+    </section>
+    <section class="card" aria-label="Marking points">
+      <label class="small" for="rules">Marking points (editable JSON)</label>
+      <textarea id="rules" class="rules" spellcheck="false"></textarea>
+      <div class="err" id="err"></div>
+    </section>
+  </div>
+  <footer>Source and docs: <a href="https://github.com/kal-eficia/mark-point-checker">github.com/kal-eficia/mark-point-checker</a> · Built by Kalid Nur</footer>
+</main>
+<script src="markpoint.js"></script>
+<script>
+const QUESTIONS = [
+  {"id":"logic-gate","q":"What is a logic gate?","marks":3,
+   "points":[
+    {"id":"input","label":"it takes one or more inputs","accept":["input",[["takes","receives"],["signal","value","bit"]]]},
+    {"id":"rule","label":"it applies a rule or Boolean operation","accept":["rule","boolean","logical operation","logic operation","operation","function","and gate","or gate","not gate"]},
+    {"id":"output","label":"it gives a single output","accept":["output",[["gives","produces","returns"],["result","value"]]]}],
+   "samples":["A logic gate is a gate that you put an input into and it gives an output","It takes binary inputs, applies a Boolean function and produces one output","a type of door"]},
+  {"id":"ram-volatile","q":"Explain why RAM is described as volatile.","marks":2,
+   "points":[
+    {"id":"lost","label":"its contents are lost","accept":["lost","loses","erased","wiped","deleted","cleared","disappears"],"forbid":["permanent","keeps its data","stays"]},
+    {"id":"power","label":"when the power is switched off","accept":["power","switched off","turned off","shut down","no electricity","unplugged"]}],
+   "samples":["Because the data is lost when the power is turned off","RAM is permanent and keeps its data when the power is off","It does not lose data"]},
+  {"id":"photosynthesis","q":"State two things a plant needs for photosynthesis.","marks":2,
+   "points":[
+    {"id":"light","label":"light","accept":["light","sunlight","sun"]},
+    {"id":"co2","label":"carbon dioxide","accept":["carbon dioxide","co2"]},
+    {"id":"water","label":"water","accept":["water","h2o"]}],
+   "samples":["sunlight and carbon dioxide","water","oxygen and soil"]}
+];
+const $ = (id) => document.getElementById(id);
+let current;
+function load(i){
+  current = JSON.parse(JSON.stringify(QUESTIONS[i]));
+  const { samples, ...rules } = current;
+  $("rules").value = JSON.stringify(rules, null, 2);
+  $("qtext").textContent = current.q;
+  $("samples").replaceChildren(...samples.map(s => { const b = document.createElement("button"); b.type="button"; b.textContent = s.length > 46 ? s.slice(0,44)+"…" : s; b.title = s; b.onclick = () => { $("answer").value = s; run(); }; return b; }));
+  $("answer").value = ""; run();
+}
+function run(){
+  let q;
+  try { q = JSON.parse($("rules").value); $("err").textContent = ""; } catch (e) { $("err").textContent = "That JSON doesn't parse yet: " + e.message; return; }
+  $("qtext").textContent = q.q || "";
+  const r = MarkPoint.mark($("answer").value, q);
+  $("score").textContent = r.score; $("outof").textContent = `/ ${r.maxMarks} mark${r.maxMarks===1?"":"s"}`;
+  const fb = $("fb");
+  fb.textContent = $("answer").value.trim() ? r.feedback : "Start typing to see the feedback.";
+  fb.className = "fb" + (!$("answer").value.trim() ? "" : r.score >= r.maxMarks ? " full" : r.score === 0 ? " none" : "");
+  $("pts").replaceChildren(...r.points.map(p => {
+    const li = document.createElement("li"); li.className = p.got ? "got" : p.blockedBy ? "blocked" : "";
+    const dot = document.createElement("span"); dot.className = "dot"; dot.textContent = p.got ? "✓" : p.blockedBy ? "!" : "·";
+    const t = document.createElement("span"); t.textContent = p.label;
+    if (p.got || p.blockedBy) { const ev = document.createElement("span"); ev.className = "ev"; ev.textContent = p.got ? "matched: " + p.evidence : "blocked by: " + p.blockedBy; t.append(ev); }
+    li.append(dot, t); return li;
+  }));
+}
+$("pick").replaceChildren(...QUESTIONS.map((q,i) => { const o = document.createElement("option"); o.value = i; o.textContent = q.q; return o; }));
+$("pick").onchange = (e) => load(+e.target.value);
+$("answer").oninput = run; $("rules").oninput = run;
+load(0);
+</script>
+</body>
+</html>

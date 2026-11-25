@@ -1,0 +1,119 @@
+{
+  "title": "IGCSE Computer Science: definitions",
+  "questions": [
+    {
+      "id": "logic-gate",
+      "q": "What is a logic gate?",
+      "marks": 3,
+      "model": "An electronic component that takes one or more binary inputs and applies a Boolean rule to produce a single output.",
+      "points": [
+        {
+          "id": "input",
+          "label": "it takes one or more inputs",
+          "accept": [
+            "input",
+            [
+              [
+                "takes",
+                "receives"
+              ],
+              [
+                "signal",
+                "value",
+                "bit"
+              ]
+            ]
+          ]
+        },
+        {
+          "id": "rule",
+          "label": "it applies a rule or Boolean operation",
+          "accept": [
+            "rule",
+            "boolean",
+            "logical operation",
+            "logic operation",
+            "operation",
+            "function",
+            "and gate",
+            "or gate",
+            "not gate"
+          ]
+        },
+        {
+          "id": "output",
+          "label": "it gives a single output",
+          "accept": [
+            "output",
+            [
+              [
+                "gives",
+                "produces",
+                "returns"
+              ],
+              [
+                "result",
+                "value"
+              ]
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ram-volatile",
+      "q": "Explain why RAM is described as volatile.",
+      "marks": 2,
+      "model": "RAM loses its contents when the power is switched off, so data is not kept.",
+      "points": [
+        {
+          "id": "lost",
+          "label": "its contents are lost",
+          "accept": [
+            "lost",
+            "loses",
+            "erased",
+            "wiped",
+            "deleted",
+            "cleared",
+            "disappears"
+          ],
+          "forbid": [
+            "permanent",
+            "keeps its data",
+            "stays"
+          ]
+        },
+        {
+          "id": "power",
+          "label": "when the power is switched off",
+          "accept": [
+            "power",
+            "switched off",
+            "turned off",
+            "shut down",
+            "no electricity",
+            "unplugged"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sort-order",
+      "q": "A list of numbers is sorted from smallest to largest. Name this order.",
+      "marks": 1,
+      "points": [
+        {
+          "id": "ascending",
+          "label": "ascending order",
+          "accept": [
+            "ascending"
+          ],
+          "forbid": [
+            "descending"
+          ]
+        }
+      ]
+    }
+  ]
+}

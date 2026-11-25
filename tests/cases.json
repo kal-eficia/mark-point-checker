@@ -1,0 +1,99 @@
+[
+ {
+  "q": "logic-gate",
+  "answer": "A logic gate is a gate that you put an input into and it gives an output",
+  "score": 2,
+  "got": [
+   "input",
+   "output"
+  ]
+ },
+ {
+  "q": "logic-gate",
+  "answer": "It takes one or more binary inputs and applies a Boolean function to produce one output.",
+  "score": 3,
+  "got": [
+   "input",
+   "rule",
+   "output"
+  ]
+ },
+ {
+  "q": "logic-gate",
+  "answer": "takes imputs, works like an AND gate, gives a result",
+  "score": 3,
+  "got": [
+   "input",
+   "rule",
+   "output"
+  ]
+ },
+ {
+  "q": "logic-gate",
+  "answer": "a type of door",
+  "score": 0,
+  "got": []
+ },
+ {
+  "q": "ram-volatile",
+  "answer": "Because the data is lost when the power is turned off",
+  "score": 2,
+  "got": [
+   "lost",
+   "power"
+  ]
+ },
+ {
+  "q": "ram-volatile",
+  "answer": "RAM is permanent and keeps its data when the power is off",
+  "score": 1,
+  "got": [
+   "power"
+  ]
+ },
+ {
+  "q": "ram-volatile",
+  "answer": "It does not lose data",
+  "score": 0,
+  "got": []
+ },
+ {
+  "q": "ram-volatile",
+  "answer": "contents get wiped when you unplug it",
+  "score": 2,
+  "got": [
+   "lost",
+   "power"
+  ]
+ },
+ {
+  "q": "sort-order",
+  "answer": "ascending",
+  "score": 1,
+  "got": [
+   "ascending"
+  ]
+ },
+ {
+  "q": "sort-order",
+  "answer": "Assending order",
+  "score": 1,
+  "got": [
+   "ascending"
+  ]
+ },
+ {
+  "q": "sort-order",
+  "answer": "descending",
+  "score": 0,
+  "got": []
+ },
+ {
+  "q": "sort-order",
+  "answer": "not descending, ascending",
+  "score": 1,
+  "got": [
+   "ascending"
+  ]
+ }
+]
