@@ -1,8 +1,9 @@
 <p align="center"><img src=".github/banner.png" alt="mark-point-checker" width="100%"></p>
 
 <p align="center">
+  <a href="https://github.com/kal-eficia/mark-point-checker/actions/workflows/tests.yml"><img src="https://github.com/kal-eficia/mark-point-checker/actions/workflows/tests.yml/badge.svg" alt="tests"></a>
   <a href="https://kal-eficia.github.io/mark-point-checker/"><img src="https://img.shields.io/badge/live%20demo-open-0f8b8d?style=flat-square" alt="Live demo"></a>
-  <img src="https://img.shields.io/badge/python-3.9%2B-0c1a30?style=flat-square" alt="Python 3.9+">
+  <img src="https://img.shields.io/badge/python-3.10%2B-0c1a30?style=flat-square" alt="Python 3.10+">
   <img src="https://img.shields.io/badge/AI%20model-none-0c1a30?style=flat-square" alt="No AI model">
   <img src="https://img.shields.io/badge/licence-MIT-c99a2e?style=flat-square" alt="MIT">
 </p>

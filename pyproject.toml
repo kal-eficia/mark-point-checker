@@ -7,7 +7,7 @@ name = "mark-point-checker"
 version = "1.0.0"
 description = "Mark short written answers against exam-style marking points, with feedback students can act on. No AI model; a JavaScript twin runs in the browser."
 readme = "README.md"
-requires-python = ">=3.9"
+requires-python = ">=3.10"
 license = { text = "MIT" }
 authors = [{ name = "Kalid Nur" }]
 keywords = ["education", "marking", "assessment", "feedback", "teachers", "edtech"]
